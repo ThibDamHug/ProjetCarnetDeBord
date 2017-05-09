@@ -21,12 +21,12 @@ public class PromoRestController {
 
 	
 	@GetMapping
-		public List<PromoDto> getAllPromo() {
+	public List<PromoDto> getAllPromo() {
 		return promoservice.getAllPromo();
 	}
 	
 	@PostMapping
-	  public void create(@RequestBody Promo promo) {
+	public void create(@RequestBody Promo promo) {
 	    promoservice.save(promo);
 	  }
 	
