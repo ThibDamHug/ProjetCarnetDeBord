@@ -15,10 +15,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-
-
 public class Role {
-	
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)

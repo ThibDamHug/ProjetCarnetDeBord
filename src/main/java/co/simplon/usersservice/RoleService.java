@@ -13,7 +13,6 @@ import co.simplon.usersdao.RoleDao;
 @Service
 public class RoleService {
 	
-	//Cree automatique l'instance et/ou la classe demandé si necessaire
 	@Autowired 
 	private RoleDao dao;
 	

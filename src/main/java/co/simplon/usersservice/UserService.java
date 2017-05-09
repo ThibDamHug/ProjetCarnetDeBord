@@ -13,8 +13,8 @@ import co.simplon.usersdao.UserDao;
 @Service
 public class UserService {
 
+	//Cree automatique l'instance et/ou la classe demandé si necessaire
 	@Autowired 
-	
 	private UserDao dao;
 	
 	public List<UserDto> findAll () {
@@ -39,7 +39,7 @@ public class UserService {
 	
 	public List<String> findAllNom() {
 		List<String> resultat = new ArrayList<>();
-		//La requete findAll n'est meme pas a specifier dans TypeDao
+		//La requete findAll n'est meme pas a specifier dans UserDao
 		Iterable<User> select = dao.findAll();
 		for (User type : select) {
 			User user = new User();
@@ -49,8 +49,8 @@ public class UserService {
 		return resultat;
 	}
 	
-	public User save(User user) {
-		return dao.save(user);
+	public void save(User user) {
+		 dao.save(user);
 
 	}
 }

@@ -11,8 +11,6 @@ import co.simplon.userdto.RoleDto;
 import co.simplon.usersdao.RoleDao;
 import co.simplon.usersservice.RoleService;
 
-
-
 @RestController
 //@RequestMapping("/roles")
 public class RoleRestController {
