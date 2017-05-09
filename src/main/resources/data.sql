@@ -8,7 +8,6 @@ INSERT INTO `role` (`name`) VALUES
 INSERT INTO `role` (`name`) VALUES
 ('apprenant');
 -- promo
-<<<<<<< HEAD
 INSERT INTO `promo` (`name`,`start_date`,`end_date`) VALUES
 ('laposte1','2016-11-01','2017-07-30');
 -- diary
@@ -29,40 +28,12 @@ INSERT INTO `user` (`firstname`,`lastname`, `password`,`email`,`pair_id`,`role_i
 INSERT INTO `user` (`firstname`,`lastname`, `password`,`email`,`pair_id`,`role_id`,`promo_id` ) VALUES
 ('michael', 'dupont5', 'azerty', 'michael@simplon.co', 1, 2, null);
 INSERT INTO `user` (`firstname`,`lastname`, `password`,`email`,`pair_id`,`role_id`,`promo_id` ) VALUES
-=======
-INSERT INTO `promo` (`name`,`startdate`,`enddate`) VALUES
-('laposte1','2016-11-01','2017-07-30');
--- diary
-INSERT INTO `diary` (`name`,`startdate`,`enddate`,`introduction`,`promo_id`) VALUES
-('session1','2017-01-01','2017-01-15','ceci sera ma premiere introduction',1);
--- users :
--- apprenant
-INSERT INTO `user` (`firstname`,`lastname`, `password`,`persomail`,`pair_id`,`role_id`,`promo_id` ) VALUES
-('abdel', 'dupont1', 'azerty', 'abdel@simplon.co', null, 4, 1); 
-INSERT INTO `user` (`firstname`,`lastname`, `password`,`persomail`,`pair_id`,`role_id`,`promo_id` ) VALUES
-('damien', 'dupont2', 'azerty', 'damien@simplon.co', null, 4, 1);
--- formateur
-INSERT INTO `user` (`firstname`,`lastname`, `password`,`persomail`,`pair_id`,`role_id`,`promo_id` ) VALUES
-('manu', 'dupont3', 'azerty', 'manu@simplon.co', null, 1, 1);
-INSERT INTO `user` (`firstname`,`lastname`, `password`,`persomail`,`pair_id`,`role_id`,`promo_id` ) VALUES
-('nico', 'dupont4', 'azerty', 'nico@simplon.co', null, 1, 1);
--- tuteur
-INSERT INTO `user` (`firstname`,`lastname`, `password`,`persomail`,`pair_id`,`role_id`,`promo_id` ) VALUES
-('michael', 'dupont5', 'azerty', 'michael@simplon.co', 1, 2, null);
-INSERT INTO `user` (`firstname`,`lastname`, `password`,`persomail`,`pair_id`,`role_id`,`promo_id` ) VALUES
->>>>>>> refs/remotes/origin/master
 ('ali', 'dupont6', 'azerty', 'ali@simplon.co', 2, 2, null);
 -- rajouter les pairs pour les apprenants
 UPDATE `user` SET `pair_id`=5 WHERE `id`=1;
 UPDATE `user` SET `pair_id`=6 WHERE `id`=2;
-
-
 -- administrateur
-<<<<<<< HEAD
 INSERT INTO `user` (`firstname`,`lastname`, `password`,`email`,`pair_id`,`role_id`,`promo_id` ) VALUES
-=======
-INSERT INTO `user` (`firstname`,`lastname`, `password`,`persomail`,`pair_id`,`role_id`,`promo_id` ) VALUES
->>>>>>> refs/remotes/origin/master
 ('laeticia', 'dupont7', 'azerty', 'laeticia@simplon.co', null, 3, null);
 
 -- question
