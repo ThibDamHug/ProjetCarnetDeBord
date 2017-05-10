@@ -6,7 +6,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import co.simplon.userdto.RoleDto;
 import co.simplon.users.Role;
 import co.simplon.usersdao.RoleDao;
 
@@ -15,20 +14,14 @@ public class RoleService {
 	
 	@Autowired 
 	private RoleDao dao;
-	
-	@Autowired 
-	private RoleDto roledto;
-	
-	public List<RoleDto> findAll() {
-		List<RoleDto> RoleDtoList = new ArrayList<RoleDto>(); 
+		
+	public List<Role> findAll() {
+		List<Role> RoleList = new ArrayList<Role>(); 
 		Iterable<Role> roles = dao.findAll();
 		for ( Role role : roles) {
-			RoleDto roledto = new RoleDto();
-			roledto.setId(role.getId()) ;
-			roledto.setName(role.getName());
-			RoleDtoList.add(roledto);
+			RoleList.add(role);
 		}
-		return RoleDtoList;
+		return RoleList;
 	}
 	
 	public Role findByName(String name) {
@@ -37,12 +30,6 @@ public class RoleService {
 	
 	public Role save(Role role) {
 		return dao.save(role);
-	}
-	
-	public RoleDto descripRole(Role role) {
-		roledto.setId(role.getId());
-		roledto.setName(role.getName());
-		return roledto;
 	}
 	
 }

@@ -7,13 +7,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import co.simplon.diaries.Promo;
-import co.simplon.diariesdto.PromoDto;
 import co.simplon.diariesservice.PromoService;
 
 @RestController
+@RequestMapping("/promos")
 public class PromoRestController {
 	
 	@Autowired
@@ -21,10 +22,11 @@ public class PromoRestController {
 
 	
 	@GetMapping
-	public List<PromoDto> getAllPromo() {
+	public List<Promo> getAllPromo() {
 		return promoservice.getAllPromo();
 	}
 	
+	//@PreAuthorize("has_role('ROLE_administrateur')")
 	@PostMapping
 	public void create(@RequestBody Promo promo) {
 	    promoservice.save(promo);

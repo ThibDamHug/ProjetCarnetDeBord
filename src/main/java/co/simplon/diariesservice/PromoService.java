@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import co.simplon.diaries.Promo;
 import co.simplon.diariesdao.PromoDao;
-import co.simplon.diariesdto.PromoDto;
 
 @Service
 public class PromoService {
@@ -16,16 +15,11 @@ public class PromoService {
 	@Autowired
 	PromoDao dao;
 	
-	public List<PromoDto> getAllPromo() {
+	public List<Promo> getAllPromo() {
 		Iterable<Promo> promos = dao.findAll();
-		List<PromoDto> listPromo = new ArrayList<PromoDto>();
+		List<Promo> listPromo = new ArrayList<Promo>();
 		for (Promo promo : promos) {
-			PromoDto dto = new PromoDto();
-			dto.setId(promo.getId());
-			dto.setName(promo.getName());
-			dto.setStartDate(promo.getStartDate());
-			dto.setEndDate(promo.getEndDate());
-			listPromo.add(dto);
+			listPromo.add(promo);
 		}
 		return listPromo;
 	}

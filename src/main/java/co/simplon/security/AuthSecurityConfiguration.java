@@ -14,7 +14,6 @@ import org.springframework.security.config.annotation.authentication.configurers
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -46,7 +45,7 @@ public class AuthSecurityConfiguration extends GlobalAuthenticationConfigurerAda
 			public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 				co.simplon.users.User account = service.findbyEmail(email);
 				if(account != null) {
-					return new User(account.getPassword(), account.getPassword(), true, true, true, true,
+					return new User2(account.getEmail(), account.getPassword(), true, true, true, true,
 							getAuthorities(account.getRole()));
 				} else {
 					throw new UsernameNotFoundException ("Impossible de trouver le compte :"+ email +".");

@@ -4,9 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import co.simplon.userdto.UserDto;
 import co.simplon.users.User;
 import co.simplon.usersdao.UserDao;
 
@@ -17,18 +18,11 @@ public class UserService {
 	@Autowired 
 	private UserDao dao;
 	
-	public List<UserDto> findAll () {
-		List <UserDto> accountList = new ArrayList<>();
+	public List<User> findAll () {
+		List <User> accountList = new ArrayList<>();
 		Iterable <User> findall = dao.findAll();
-		RoleService roleservice = new RoleService();
-		for (User account2: findall) {
-			UserDto account= new UserDto();
-				account.setId(account2.getId());
-				account.setFirstname(account2.getFirstname());
-				account.setLastname(account2.getLastname());
-				account.setEmail(account2.getEmail());
-				account.setRoledto(roleservice.descripRole(account2.getRole()));
-				accountList.add(account);
+		for (User account: findall) {
+			accountList.add(account);
 		}
 		return accountList;
 	}
@@ -52,5 +46,18 @@ public class UserService {
 	public void save(User user) {
 		 dao.save(user);
 
+	}
+	
+	  public User getConnect() {
+		  User user = new User();
+		  User userfinal = new User();
+		  Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		  String currentPrincipal = authentication.getName();
+		  user = dao.findByEmail(currentPrincipal);
+		  userfinal.setId(user.getId());
+		  userfinal.setEmail(user.getEmail());
+		  //userfinal.setRole(user.getRole());
+		  userfinal.setPromo(user.getPromo());
+		  return userfinal;
 	}
 }

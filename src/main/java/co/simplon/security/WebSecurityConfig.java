@@ -42,6 +42,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   		.cors()
   	.and()
   		.authorizeRequests()
+		.antMatchers("/promos/**").hasAuthority("ROLE_administrateur")
   		.anyRequest().authenticated()
   	.and()
   		.httpBasic()
