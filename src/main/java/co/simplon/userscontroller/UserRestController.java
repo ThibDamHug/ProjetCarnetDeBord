@@ -56,5 +56,4 @@ public class UserRestController {
 	    update.setFirstname(contact.getFirstname());
 	    return dao.save(update);
 	  }
-
 }

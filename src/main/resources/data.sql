@@ -36,48 +36,50 @@ UPDATE `user` SET `pair_id`=6 WHERE `id`=2;
 INSERT INTO `user` (`firstname`,`lastname`, `password`,`email`,`pair_id`,`role_id`,`promo_id` ) VALUES
 ('laeticia', 'dupont7', 'azerty', 'laeticia@simplon.co', null, 3, null);
 
--- question
-INSERT INTO `question` (`content`,`diary_id`,`role_id`) VALUES
-("Ceci sera la 1ere question du tuteur" ,1,2);
-INSERT INTO `question` (`content`,`diary_id`,`role_id`) VALUES
-("Ceci sera la 2eme question du tuteur" ,1,2);
-INSERT INTO `question` (`content`,`diary_id`,`role_id`) VALUES
-("Ceci sera la 3eme question du tuteur" ,1,2);
-INSERT INTO `question` (`content`,`diary_id`,`role_id`) VALUES
-("Ceci sera la 4eme question du tuteur" ,1,2);
-INSERT INTO `question` (`content`,`diary_id`,`role_id`) VALUES
-("Ceci sera la 5eme question du tuteur" ,1,2);
-INSERT INTO `question` (`content`,`diary_id`,`role_id`) VALUES
-("Ceci sera la 1ere question de l'apprenant" ,1,4);
-INSERT INTO `question` (`content`,`diary_id`,`role_id`) VALUES
-("Ceci sera la 2eme question de l'apprenant" ,1,4);
-INSERT INTO `question` (`content`,`diary_id`,`role_id`) VALUES
-("Ceci sera la 3eme question de l'apprenant" ,1,4);
-INSERT INTO `question` (`content`,`diary_id`,`role_id`) VALUES
-("Ceci sera la 4eme question de l'apprenant" ,1,4);
-INSERT INTO `question` (`content`,`diary_id`,`role_id`) VALUES
-("Ceci sera la 5eme question de l'apprenant" ,1,4);
 -- answer
-INSERT INTO `answer` (`content`,`user_id`,`question_id`) VALUES
-("ceci est la  reponse 1 du tuteur d'abdel",5,1);
-INSERT INTO `answer` (`content`,`user_id`,`question_id`) VALUES
-("ceci est la  reponse 2 du tuteur d'abdel",5,2);
-INSERT INTO `answer` (`content`,`user_id`,`question_id`) VALUES
-("ceci est la  reponse 3 du tuteur d'abdel",5,3);
-INSERT INTO `answer` (`content`,`user_id`,`question_id`) VALUES
-("ceci est la  reponse 4 du tuteur d'abdel",5,4);
-INSERT INTO `answer` (`content`,`user_id`,`question_id`) VALUES
-("ceci est la  reponse 5 du tuteur d'abdel",5,5);
-INSERT INTO `answer` (`content`,`user_id`,`question_id`) VALUES
-("ceci est la  reponse 1 d'abdel",1,6);
-INSERT INTO `answer` (`content`,`user_id`,`question_id`) VALUES
-("ceci est la  reponse 2 d'abdel",1,7);
-INSERT INTO `answer` (`content`,`user_id`,`question_id`) VALUES
-("ceci est la  reponse 3 d'abdel",1,8);
-INSERT INTO `answer` (`content`,`user_id`,`question_id`) VALUES
-("ceci est la  reponse 4 d'abdel",1,9);
-INSERT INTO `answer` (`content`,`user_id`,`question_id`) VALUES
-("ceci est la  reponse 5 d'abdel",1,10);
+INSERT INTO `answer` (`content`,`user_id`) VALUES
+("ceci est la  reponse 1 du tuteur d'abdel",5,);
+INSERT INTO `answer` (`content`,`user_id`) VALUES
+("ceci est la  reponse 2 du tuteur d'abdel",5);
+INSERT INTO `answer` (`content`,`user_id`) VALUES
+("ceci est la  reponse 3 du tuteur d'abdel",5);
+INSERT INTO `answer` (`content`,`user_id`) VALUES
+("ceci est la  reponse 4 du tuteur d'abdel",5);
+INSERT INTO `answer` (`content`,`user_id`) VALUES
+("ceci est la  reponse 5 du tuteur d'abdel",5);
+INSERT INTO `answer` (`content`,`user_id`) VALUES
+("ceci est la  reponse 1 d'abdel",1);
+INSERT INTO `answer` (`content`,`user_id`) VALUES
+("ceci est la  reponse 2 d'abdel",1);
+INSERT INTO `answer` (`content`,`user_id`) VALUES
+("ceci est la  reponse 3 d'abdel",1);
+INSERT INTO `answer` (`content`,`user_id`) VALUES
+("ceci est la  reponse 4 d'abdel",1);
+INSERT INTO `answer` (`content`,`user_id`) VALUES
+("ceci est la  reponse 5 d'abdel",1);
+
+-- question
+INSERT INTO `question` (`content`,`diary_id`,`role_id`,`answer_id`) VALUES
+("Ceci sera la 1ere question du tuteur" ,1,2,1);
+INSERT INTO `question` (`content`,`diary_id`,`role_id`,`answer_id`) VALUES
+("Ceci sera la 2eme question du tuteur" ,1,2,2);
+INSERT INTO `question` (`content`,`diary_id`,`role_id`,`answer_id`) VALUES
+("Ceci sera la 3eme question du tuteur" ,1,2,3);
+INSERT INTO `question` (`content`,`diary_id`,`role_id`,`answer_id`) VALUES
+("Ceci sera la 4eme question du tuteur" ,1,2,4);
+INSERT INTO `question` (`content`,`diary_id`,`role_id`,`answer_id`) VALUES
+("Ceci sera la 5eme question du tuteur" ,1,2,5);
+INSERT INTO `question` (`content`,`diary_id`,`role_id`,`answer_id`) VALUES
+("Ceci sera la 1ere question de l'apprenant" ,1,4,6);
+INSERT INTO `question` (`content`,`diary_id`,`role_id`,`answer_id`) VALUES
+("Ceci sera la 2eme question de l'apprenant" ,1,4,7);
+INSERT INTO `question` (`content`,`diary_id`,`role_id`,`answer_id`) VALUES
+("Ceci sera la 3eme question de l'apprenant" ,1,4,8);
+INSERT INTO `question` (`content`,`diary_id`,`role_id`,`answer_id`) VALUES
+("Ceci sera la 4eme question de l'apprenant" ,1,4,9);
+INSERT INTO `question` (`content`,`diary_id`,`role_id`,`answer_id`) VALUES
+("Ceci sera la 5eme question de l'apprenant" ,1,4,10);
+
 -- conclusion
 INSERT INTO `conclusion` (`content`,`user_id`,`diary_id`) VALUES
 ("ceci est la conclusion de la session 1 du carnet d'abdel",1,1);

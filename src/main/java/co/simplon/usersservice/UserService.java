@@ -57,7 +57,7 @@ public class UserService {
 		  userfinal.setId(user.getId());
 		  userfinal.setEmail(user.getEmail());
 		  //userfinal.setRole(user.getRole());
-		  userfinal.setPromo(user.getPromo());
+		  //userfinal.setPromo(user.getPromo());
 		  return userfinal;
 	}
 }
