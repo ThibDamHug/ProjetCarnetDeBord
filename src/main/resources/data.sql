@@ -38,7 +38,7 @@ INSERT INTO `user` (`firstname`,`lastname`, `password`,`email`,`pair_id`,`role_i
 
 -- answer
 INSERT INTO `answer` (`content`,`user_id`) VALUES
-("ceci est la  reponse 1 du tuteur d'abdel",5,);
+("ceci est la  reponse 1 du tuteur d'abdel",5);
 INSERT INTO `answer` (`content`,`user_id`) VALUES
 ("ceci est la  reponse 2 du tuteur d'abdel",5);
 INSERT INTO `answer` (`content`,`user_id`) VALUES
