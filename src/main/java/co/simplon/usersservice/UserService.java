@@ -22,11 +22,27 @@ public class UserService {
 		List <User> accountList = new ArrayList<>();
 		Iterable <User> findall = dao.findAll();
 		for (User account: findall) {
-			accountList.add(account);
+			User user = new User();
+			user.setId(account.getId());
+			user.setFirstname(account.getFirstname());
+			user.setLastname(account.getLastname());
+			user.setEmail(account.getEmail());
+			user.setRole(account.getRole());
+			user.setPromo(account.getPromo());
+			if (account.getPair() != null) {
+			user.setPair(newPair(account.getPair()));
+			}
+			accountList.add(user);
 		}
 		return accountList;
 	}
-		
+	
+	public User newPair (User pair) {
+		User userfinal = new User();
+		userfinal.setId(pair.getId());
+		return userfinal;
+	}
+	
 	public User findbyEmail(String email) {
 		return dao.findByEmail(email);
 	}
