@@ -13,23 +13,23 @@ import co.simplon.usersdao.RoleDao;
 public class RoleService {
 	
 	@Autowired 
-	private RoleDao dao;
+	private RoleDao roleDao;
 		
 	public List<Role> findAll() {
-		List<Role> RoleList = new ArrayList<Role>(); 
-		Iterable<Role> roles = dao.findAll();
+		List<Role> roleList = new ArrayList<Role>(); 
+		Iterable<Role> roles = roleDao.findAll();
 		for ( Role role : roles) {
-			RoleList.add(role);
+			roleList.add(role);
 		}
-		return RoleList;
+		return roleList;
 	}
 	
 	public Role findByName(String name) {
-		return dao.findByName(name);
+		return roleDao.findByName(name);
 	}
 	
 	public Role save(Role role) {
-		return dao.save(role);
+		return roleDao.save(role);
 	}
 	
 }

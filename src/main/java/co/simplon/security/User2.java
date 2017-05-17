@@ -18,22 +18,23 @@ package co.simplon.security;
 	 */
 
 	import java.io.Serializable;
-	import java.util.ArrayList;
-	import java.util.Arrays;
-	import java.util.Collection;
-	import java.util.Collections;
-	import java.util.Comparator;
-	import java.util.List;
-	import java.util.Set;
-	import java.util.SortedSet;
-	import java.util.TreeSet;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
-	import org.springframework.security.core.GrantedAuthority;
-	import org.springframework.security.core.CredentialsContainer;
-	import org.springframework.security.core.SpringSecurityCoreVersion;
-	import org.springframework.security.core.authority.AuthorityUtils;
-	import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.CredentialsContainer;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.SpringSecurityCoreVersion;
+import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.util.Assert;
 
 	/**
@@ -153,7 +154,7 @@ import org.springframework.util.Assert;
 		public void eraseCredentials() {
 			password = null;
 		}
-
+		
 		private static SortedSet<GrantedAuthority> sortAuthorities(
 				Collection<? extends GrantedAuthority> authorities) {
 			Assert.notNull(authorities, "Cannot pass a null GrantedAuthority collection");
@@ -419,7 +420,7 @@ import org.springframework.util.Assert;
 				this.disabled = disabled;
 				return this;
 			}
-
+			
 			public UserDetails build() {
 				return new User2(email, password, !disabled, !accountExpired,
 						!credentialsExpired, !accountLocked, authorities);

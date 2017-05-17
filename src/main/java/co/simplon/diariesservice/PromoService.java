@@ -13,10 +13,10 @@ import co.simplon.diariesdao.PromoDao;
 public class PromoService {
 	
 	@Autowired
-	PromoDao dao;
+	PromoDao promoDao;
 	
 	public List<Promo> getAllPromo() {
-		Iterable<Promo> promos = dao.findAll();
+		Iterable<Promo> promos = promoDao.findAll();
 		List<Promo> listPromo = new ArrayList<Promo>();
 		for (Promo promo : promos) {
 			listPromo.add(promo);
@@ -25,14 +25,22 @@ public class PromoService {
 	}
 	
 	public void save(Promo promo) {
-		 dao.save(promo);
+		 promoDao.save(promo);
 	}
 	
-	public void update(Promo promo) {
-	Promo promofinal = dao.findOne(promo.getId());
-	promofinal.setName(promo.getName());
-	promofinal.setStartDate(promo.getStartDate());
-	promofinal.setEndDate(promo.getEndDate());
-	dao.save(promofinal);
+	public void update(int id ,Promo promo) {
+	Promo promoFinal = promoDao.findOne(id);
+	promoFinal.setName(promo.getName());
+	promoFinal.setStartDate(promo.getStartDate());
+	promoFinal.setEndDate(promo.getEndDate());
+	promoDao.save(promoFinal);
+	}
+
+// Permet de nettoyer les promos dans les autres méthodes
+	public Promo setFinalPromo(Promo promo) {
+		Promo finalPromo = new Promo();
+		finalPromo.setId(promo.getId());
+		finalPromo.setName(promo.getName());
+		return finalPromo;
 	}
 }

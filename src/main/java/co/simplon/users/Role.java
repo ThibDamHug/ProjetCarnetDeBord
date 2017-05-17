@@ -18,7 +18,7 @@ public class Role {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private long id;
+	private int id;
 	
 	private String name;
 	
@@ -29,8 +29,4 @@ public class Role {
 	//@OneToMany(mappedBy="role")
 	//private List <User> users;
 	
-//	@OneToMany(mappedBy="role")
-//	private List <Question> questions;
-	
-
 }

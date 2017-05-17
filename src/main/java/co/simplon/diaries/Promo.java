@@ -17,13 +17,12 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Promo {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private long id;
+	private int id;
 	
 	@NotBlank(message = "Name can't empty!")
 	private String name;
@@ -33,11 +32,5 @@ public class Promo {
 	
 	@NotBlank(message = "Name can't empty!")
 	private Date endDate;
-	
-//	@OneToMany(mappedBy = "promo")
-//	private List <User> users;
-	
-//	@OneToMany(mappedBy = "promo")
-//	private List <Diary> diaries;
 
 }

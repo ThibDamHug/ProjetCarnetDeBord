@@ -4,6 +4,6 @@ import org.springframework.data.repository.CrudRepository;
 
 import co.simplon.diaries.Promo;
 
-public interface PromoDao extends CrudRepository<Promo, Long> {
+public interface PromoDao extends CrudRepository<Promo, Integer> {
 
 }

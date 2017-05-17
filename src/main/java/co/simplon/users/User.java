@@ -28,7 +28,7 @@ public class User {
 	@Id
 	//Previent que la cle est genere  automatiquement
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private long id;
+	private int id;
 	
 	private String firstname;
 	

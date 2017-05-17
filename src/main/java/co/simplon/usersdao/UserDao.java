@@ -4,9 +4,13 @@ import org.springframework.data.repository.CrudRepository;
 
 import co.simplon.users.User;
 
-public interface UserDao extends CrudRepository<User, Long> {
+public interface UserDao extends CrudRepository<User, Integer> {
 	
 	public User findByEmail(String email);
+	
+	public Iterable<User> findAllByRoleName(String string);
+
+	public User findOne(int id);
 
 	
 //	Permet de creer des methodes via Crud 

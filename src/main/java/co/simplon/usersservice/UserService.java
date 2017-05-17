@@ -8,6 +8,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import co.simplon.diaries.Promo;
+import co.simplon.diariesservice.PromoService;
 import co.simplon.users.User;
 import co.simplon.usersdao.UserDao;
 
@@ -16,64 +18,114 @@ public class UserService {
 
 	//Cree automatique l'instance et/ou la classe demandé si necessaire
 	@Autowired 
-	private UserDao dao;
+	private UserDao userDao;
+	
+	@Autowired
+	private PromoService promoService;
+	
+	public User findByEmail(String email) {
+		return userDao.findByEmail(email);
+	}
+	
+	public void save (User user) {
+		userDao.save(user);
+	}
 	
 	public List<User> findAll () {
 		List <User> accountList = new ArrayList<>();
-		Iterable <User> findall = dao.findAll();
-		for (User account: findall) {
+		//La requete findAll n'est meme pas a specifier dans UserDao
+		Iterable <User> findAll = userDao.findAll();
+		for (User userTemp: findAll) {
 			User user = new User();
-			user.setId(account.getId());
-			user.setFirstname(account.getFirstname());
-			user.setLastname(account.getLastname());
-			user.setEmail(account.getEmail());
-			user.setRole(account.getRole());
-			user.setPromo(account.getPromo());
-			if (account.getPair() != null) {
-			user.setPair(newPair(account.getPair()));
+			user.setId(userTemp.getId());
+			user.setFirstname(userTemp.getFirstname());
+			user.setLastname(userTemp.getLastname());
+			user.setEmail(userTemp.getEmail());
+			user.setRole(userTemp.getRole());
+			if (userTemp.getPromo() != null) {
+			user.setPromo(promoService.setFinalPromo(userTemp.getPromo()));
+			}
+			if (userTemp.getPair() != null) {
+			user.setPair(setFinalPair(userTemp.getPair()));
 			}
 			accountList.add(user);
 		}
 		return accountList;
 	}
-	
-	public User newPair (User pair) {
-		User userfinal = new User();
-		userfinal.setId(pair.getId());
-		return userfinal;
-	}
-	
-	public User findbyEmail(String email) {
-		return dao.findByEmail(email);
-	}
-	
-	public List<String> findAllNom() {
-		List<String> resultat = new ArrayList<>();
-		//La requete findAll n'est meme pas a specifier dans UserDao
-		Iterable<User> select = dao.findAll();
-		for (User type : select) {
-			User user = new User();
-			user.setFirstname(type.getFirstname());
-			resultat.add(user.getFirstname());
-		}
-		return resultat;
-	}
-	
-	public void save(User user) {
-		 dao.save(user);
-
-	}
-	
+		
 	  public User getConnect() {
 		  User user = new User();
-		  User userfinal = new User();
+		  User userFinal = new User();
+		  User userPair = new User();
+		  Promo promoFinal = new Promo();
 		  Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		  String currentPrincipal = authentication.getName();
-		  user = dao.findByEmail(currentPrincipal);
-		  userfinal.setId(user.getId());
-		  userfinal.setEmail(user.getEmail());
-		  //userfinal.setRole(user.getRole());
-		  //userfinal.setPromo(user.getPromo());
-		  return userfinal;
-	}
+		  user = userDao.findByEmail(currentPrincipal);
+		  
+		  userFinal.setId(user.getId());
+		  userFinal.setFirstname(user.getFirstname());
+		  userFinal.setLastname(user.getLastname());
+		  userFinal.setEmail(user.getEmail());
+		  userFinal.setRole(user.getRole());
+		  if (user.getPair() != null) {
+			  userPair.setId(user.getPair().getId());
+			  userPair.setFirstname(user.getPair().getFirstname());
+			  if(user.getPair().getPromo() != null) {
+				  promoFinal.setId(user.getPair().getPromo().getId());
+				  promoFinal.setName(user.getPair().getPromo().getName());
+				  userPair.setPromo(promoFinal);
+			  }
+			  userFinal.setPair(userPair);
+		  }
+		  if (user.getPromo() != null) {			  
+			  userFinal.setPromo(promoService.setFinalPromo(user.getPromo()));
+		  }
+		  return userFinal;
+	  }
+	  
+	  public List<User> getByRole (String string) {
+		  Iterable <User> getByRoleTemp = userDao.findAllByRoleName(string);
+		  List <User> getByRole = new ArrayList<User>();
+		  for (User userTemp : getByRoleTemp) {
+			  User user = new User ();
+			  user.setId(userTemp.getId());
+			  user.setFirstname(userTemp.getFirstname());
+			  user.setLastname(userTemp.getLastname());
+			  user.setEmail(userTemp.getEmail());
+			  user.setRole(userTemp.getRole());
+			  if (userTemp.getPromo() != null) {
+				user.setPromo(promoService.setFinalPromo(userTemp.getPromo()));
+				}
+			  if (userTemp.getPair() != null) {
+				user.setPair(setFinalPair(userTemp.getPair()));
+				}
+			  getByRole.add(user);
+		  }
+		  return getByRole;
+	  }
+	    
+	  public void update(int id ,User user) {
+		  User userFinal = userDao.findOne(id);
+		  userFinal.setFirstname(user.getFirstname());
+		  userFinal.setLastname(user.getLastname());
+		  if (user.getPair() != null) {
+			  userFinal.setPair(user.getPair());
+		  }
+		  userFinal.setPassword(user.getPassword());
+		  if (user.getPromo() != null) {
+			  userFinal.setPromo(user.getPromo());
+		  }
+		  userFinal.setRole(user.getRole());
+		  userDao.save(userFinal);
+	  }
+	  
+	  
+	  private User setFinalPair (User pair) {
+			User userFinal = new User();
+			userFinal.setId(pair.getId());
+			userFinal.setFirstname(pair.getFirstname());
+			userFinal.setPromo(promoService.setFinalPromo(pair.getPromo()));
+			return userFinal;
+	  }
+	  
 }

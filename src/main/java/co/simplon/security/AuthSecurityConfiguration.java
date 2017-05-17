@@ -43,7 +43,7 @@ public class AuthSecurityConfiguration extends GlobalAuthenticationConfigurerAda
 			@Transactional
 			@Override
 			public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-				co.simplon.users.User account = service.findbyEmail(email);
+				co.simplon.users.User account = service.findByEmail(email);
 				if(account != null) {
 					return new User2(account.getEmail(), account.getPassword(), true, true, true, true,
 							getAuthorities(account.getRole()));
