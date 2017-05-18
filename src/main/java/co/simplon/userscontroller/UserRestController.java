@@ -23,19 +23,21 @@ public class UserRestController {
 
 	  @Autowired
 	  
-	  private UserService service;
+	  private UserService userService;
 	   
-	  //Permet de recuperer les utilisateurs en fonction des roles(mockup 4 et 5)
+	  //Permet de recuperer les utilisateurs en fonction des roles ou en fonction d'une promo et d'un carnet(User (mockup 4 et 5)
 	  //@RequestMapping(method=RequestMethod.GET)
 	  @PreAuthorize("hasRole('ROLE_administrateur')")  
 	  @GetMapping
-	  public List<User> getRoleFonction (@RequestParam Optional<String> role) {
-		  if (role.isPresent()) {
-			  return service.getByRole(role.get()); 
-		  }
-		  
-		  else {
-			  return service.findAll();
+	  public List<User> getUsers (	@RequestParam Optional<String> role,
+			  						@RequestParam Optional<Integer> diaryId,
+			  						@RequestParam Optional<Integer> promoId ) {
+		  if (diaryId.isPresent() && promoId.isPresent()) {
+			  return userService.getUserListWithoutConclusion(diaryId.get(), promoId.get());
+		  } else if (role.isPresent()) {
+			  return userService.userListgetByRole(role.get()); 
+		  } else {
+			  return userService.findAll();
 		  }
 	  }
 	  
@@ -43,20 +45,20 @@ public class UserRestController {
 	  @PreAuthorize("hasRole('ROLE_administrateur')")
 	  @PostMapping
 	  public void create(@RequestBody User user) {
-	     service.save(user);
+	     userService.save(user);
 	  }
 	  
 	  //Permet de modifier un utilisateur (mockup4 et 8)
 	  @PreAuthorize("hasRole('ROLE_administrateur')")
 	  @PutMapping("/{id}")
 	  public void update(@PathVariable int id, @RequestBody User user) {
-	     service.update(id, user);
+	     userService.update(id, user);
 	  }
 	  
 	  //Permet de recuperer l'utilisateur connecte (mockup1)
 	  @GetMapping("/connected")
 	  public User connected() {
-		  return service.getConnect();
+		  return userService.getConnect();
 	  }
 	  
 }

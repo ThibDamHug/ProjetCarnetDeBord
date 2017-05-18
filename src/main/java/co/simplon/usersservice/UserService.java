@@ -8,7 +8,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import co.simplon.diaries.Promo;
+import co.simplon.diaries.Conclusion;
 import co.simplon.diariesservice.PromoService;
 import co.simplon.users.User;
 import co.simplon.usersdao.UserDao;
@@ -22,6 +22,7 @@ public class UserService {
 	
 	@Autowired
 	private PromoService promoService;
+
 	
 	public User findByEmail(String email) {
 		return userDao.findByEmail(email);
@@ -32,99 +33,82 @@ public class UserService {
 	}
 	
 	public List<User> findAll () {
-		List <User> accountList = new ArrayList<>();
+		List <User> usersList = new ArrayList<>();
 		//La requete findAll n'est meme pas a specifier dans UserDao
 		Iterable <User> findAll = userDao.findAll();
 		for (User userTemp: findAll) {
-			User user = new User();
-			user.setId(userTemp.getId());
-			user.setFirstname(userTemp.getFirstname());
-			user.setLastname(userTemp.getLastname());
-			user.setEmail(userTemp.getEmail());
-			user.setRole(userTemp.getRole());
-			if (userTemp.getPromo() != null) {
-			user.setPromo(promoService.setFinalPromo(userTemp.getPromo()));
-			}
-			if (userTemp.getPair() != null) {
-			user.setPair(setFinalPair(userTemp.getPair()));
-			}
-			accountList.add(user);
+			usersList.add(setFinalUser(userTemp));
 		}
-		return accountList;
+		return usersList;
 	}
 		
 	  public User getConnect() {
-		  User user = new User();
-		  User userFinal = new User();
-		  User userPair = new User();
-		  Promo promoFinal = new Promo();
 		  Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		  String currentPrincipal = authentication.getName();
-		  user = userDao.findByEmail(currentPrincipal);
-		  
-		  userFinal.setId(user.getId());
-		  userFinal.setFirstname(user.getFirstname());
-		  userFinal.setLastname(user.getLastname());
-		  userFinal.setEmail(user.getEmail());
-		  userFinal.setRole(user.getRole());
-		  if (user.getPair() != null) {
-			  userPair.setId(user.getPair().getId());
-			  userPair.setFirstname(user.getPair().getFirstname());
-			  if(user.getPair().getPromo() != null) {
-				  promoFinal.setId(user.getPair().getPromo().getId());
-				  promoFinal.setName(user.getPair().getPromo().getName());
-				  userPair.setPromo(promoFinal);
-			  }
-			  userFinal.setPair(userPair);
-		  }
-		  if (user.getPromo() != null) {			  
-			  userFinal.setPromo(promoService.setFinalPromo(user.getPromo()));
-		  }
+		  User user = userDao.findByEmail(currentPrincipal);
+		  User userFinal = setFinalUser(user);
 		  return userFinal;
 	  }
 	  
-	  public List<User> getByRole (String string) {
+	  public List<User> userListgetByRole (String string) {
 		  Iterable <User> getByRoleTemp = userDao.findAllByRoleName(string);
 		  List <User> getByRole = new ArrayList<User>();
 		  for (User userTemp : getByRoleTemp) {
-			  User user = new User ();
-			  user.setId(userTemp.getId());
-			  user.setFirstname(userTemp.getFirstname());
-			  user.setLastname(userTemp.getLastname());
-			  user.setEmail(userTemp.getEmail());
-			  user.setRole(userTemp.getRole());
-			  if (userTemp.getPromo() != null) {
-				user.setPromo(promoService.setFinalPromo(userTemp.getPromo()));
-				}
-			  if (userTemp.getPair() != null) {
-				user.setPair(setFinalPair(userTemp.getPair()));
-				}
-			  getByRole.add(user);
+			  getByRole.add(setFinalUser(userTemp));
 		  }
 		  return getByRole;
 	  }
+	  
+		public List<User> getUserListWithoutConclusion(int diaryId,int promoId) {
+			Iterable <User> getAllFromAPromo = userDao.findAllByPromoId(promoId); 
+			List <User> getWithoutConclusion = new ArrayList<User>();
+			for (User userTemp : getAllFromAPromo){
+						if (!userTemp.getConclusions().isEmpty()) {
+							List<Conclusion> conclusionListTemp = userTemp.getConclusions();				
+							List<Conclusion> conclusionListTemp2 = new ArrayList<Conclusion>();
+							for (Conclusion conclusionTemp : conclusionListTemp) {
+								if (conclusionTemp.getDiary().getId() == diaryId) {
+									conclusionListTemp2.add(conclusionTemp);
+								}
+							}
+							if (conclusionListTemp2.isEmpty()){
+								getWithoutConclusion.add(setFinalUser(userTemp));
+							}
+						}
+			}
+		return getWithoutConclusion;
+		}
 	    
 	  public void update(int id ,User user) {
 		  User userFinal = userDao.findOne(id);
-		  userFinal.setFirstname(user.getFirstname());
-		  userFinal.setLastname(user.getLastname());
-		  if (user.getPair() != null) {
-			  userFinal.setPair(user.getPair());
-		  }
-		  userFinal.setPassword(user.getPassword());
-		  if (user.getPromo() != null) {
-			  userFinal.setPromo(user.getPromo());
-		  }
-		  userFinal.setRole(user.getRole());
+		  userFinal = setFinalUser(user);
 		  userDao.save(userFinal);
 	  }
 	  
+	  /////////////////////////////////////// Methodes Privés ///////////////////////////////////////////
 	  
 	  private User setFinalPair (User pair) {
 			User userFinal = new User();
 			userFinal.setId(pair.getId());
 			userFinal.setFirstname(pair.getFirstname());
 			userFinal.setPromo(promoService.setFinalPromo(pair.getPromo()));
+			return userFinal;
+	  }
+
+	  private User setFinalUser (User user) {
+			User userFinal = new User();
+			userFinal.setId(user.getId());
+			userFinal.setFirstname(user.getFirstname());
+			userFinal.setLastname(user.getLastname());
+			userFinal.setPassword(user.getPassword());
+			userFinal.setEmail(user.getEmail());
+			userFinal.setRole(user.getRole());
+			if (user.getPromo() != null) {
+				userFinal.setPromo(promoService.setFinalPromo(user.getPromo()));
+			}
+			if (user.getPair() != null) {
+				userFinal.setPair(setFinalPair(user.getPair()));
+				}
 			return userFinal;
 	  }
 	  

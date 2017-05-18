@@ -1,6 +1,7 @@
 package co.simplon.diariescontroller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -22,8 +23,8 @@ public class DiaryRestController {
 	DiaryService diaryService;
 	
 	@GetMapping
-	public List <Diary> listDiaries (@RequestParam int roleId, int promoId) {
-		return diaryService.getDiaries (roleId,promoId);
+	public List <Diary> listDiaries (@RequestParam Optional<Integer> roleId, Optional<Integer> promoId) {
+		return diaryService.getDiaries (promoId.get());
 	}
 	
 	//Permet de creer un carnet (mockup10)

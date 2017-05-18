@@ -1,14 +1,18 @@
 package co.simplon.users;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+import co.simplon.diaries.Conclusion;
 import co.simplon.diaries.Promo;
 import lombok.Getter;
 import lombok.Setter;
@@ -61,9 +65,11 @@ public class User {
 	@ManyToOne
 	private Role role;
 	
+	@OneToMany(mappedBy="user")
+	private List<Conclusion> conclusions;
+	
 //	@OneToMany(mappedBy="user")
 //	private List<Answer> answers;
 
-//	@OneToMany(mappedBy="user")
-//	private List<Conclusion> conclusions;
+
 }

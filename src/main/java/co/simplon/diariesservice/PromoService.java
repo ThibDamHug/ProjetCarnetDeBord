@@ -36,7 +36,8 @@ public class PromoService {
 	promoDao.save(promoFinal);
 	}
 
-// Permet de nettoyer les promos dans les autres méthodes
+	/////////////////////////////////////// Methodes Privés ///////////////////////////////////////////
+	
 	public Promo setFinalPromo(Promo promo) {
 		Promo finalPromo = new Promo();
 		finalPromo.setId(promo.getId());
