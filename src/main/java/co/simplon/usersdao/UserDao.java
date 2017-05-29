@@ -11,8 +11,6 @@ public interface UserDao extends CrudRepository<User, Integer> {
 	
 	public Iterable<User> findAllByRoleName(String string);
 
-	public User findOne(int id);
-
 	public Iterable<User> findAllByPromoId(int promoId);
 
 //	Permet de creer des methodes non comprise par Hibernate

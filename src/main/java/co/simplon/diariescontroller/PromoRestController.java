@@ -29,7 +29,7 @@ public class PromoRestController {
 	}
 	
 	//Permet de creer une promo (mockup3)
-	@PreAuthorize("has_role('ROLE_administrateur')")
+	@PreAuthorize("hasRole('ROLE_administrateur')")
 	@PostMapping
 	public void create(@RequestBody Promo promo) {
 	    promoservice.save(promo);

@@ -16,20 +16,12 @@ public class RoleService {
 	private RoleDao roleDao;
 		
 	public List<Role> findAll() {
-		List<Role> roleList = new ArrayList<Role>(); 
+		List<Role> rolesList = new ArrayList<Role>(); 
 		Iterable<Role> roles = roleDao.findAll();
 		for ( Role role : roles) {
-			roleList.add(role);
+			rolesList.add(role);
 		}
-		return roleList;
+		return rolesList;
 	}
-	
-	public Role findByName(String name) {
-		return roleDao.findByName(name);
-	}
-	
-	public Role save(Role role) {
-		return roleDao.save(role);
-	}
-	
+		
 }

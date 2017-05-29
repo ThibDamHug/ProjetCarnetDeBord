@@ -6,6 +6,5 @@ import co.simplon.users.Role;
 
 public interface RoleDao extends CrudRepository<Role, Integer> {
 	
-	public Role findByName(String name);
 	
 }

@@ -15,6 +15,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import co.simplon.security.rest.configuration.RESTAuthenticationEntryPoint;
 import co.simplon.security.rest.configuration.RESTAuthenticationSuccessHandler;
 
 //Previent SpringBoot Security
@@ -28,6 +29,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	RESTAuthenticationSuccessHandler successHandler;
 	
+	@Autowired
+	
+	RESTAuthenticationEntryPoint restAuthenticationEntryPoint;
+	
 	//Override la methode configure
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -35,27 +40,30 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 		
 		http
-		.formLogin()
-		.successHandler(successHandler)
-		.permitAll()
-	.and()
-  		.cors()
-  	.and()
-  		.authorizeRequests()
+        	.exceptionHandling()
+  				.authenticationEntryPoint(restAuthenticationEntryPoint)
+  		.and()
+  			.formLogin()
+  				.successHandler(successHandler)
+  				.permitAll()
+  		.and()
+  			.cors()
+  		.and()
+  			.authorizeRequests()
 		//.antMatchers("/users/**").hasAnyAuthority("ROLE_administrateur","ROLE_apprenant","Role_caca")
 		//.antMatchers("/roles/**").authenticated()
-  		.anyRequest().authenticated()
-  	.and()
-  		.httpBasic()
-  	.and()
-  	.logout()
-  		.logoutSuccessHandler((new HttpStatusReturningLogoutSuccessHandler (HttpStatus.OK)))
-  		.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-  		.deleteCookies("JSESSIONID")
-  		.permitAll()
-  	.and()
-  		.csrf()
-  		.disable();		
+  			.anyRequest().authenticated()
+  		.and()
+  			.httpBasic()
+  		.and()
+  		.logout()
+  			.logoutSuccessHandler((new HttpStatusReturningLogoutSuccessHandler (HttpStatus.OK)))
+  			.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+  			.deleteCookies("JSESSIONID")
+  			.permitAll()
+  		.and()
+  			.csrf()
+  			.disable();		
 //		.formLogin()
 //			.loginPage("/login.html")
 //				.usernameParameter("username").passwordParameter("password")

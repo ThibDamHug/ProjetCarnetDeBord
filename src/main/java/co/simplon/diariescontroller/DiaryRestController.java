@@ -16,15 +16,20 @@ import co.simplon.diaries.Diary;
 import co.simplon.diariesservice.DiaryService;
 
 @RestController
-@RequestMapping("/diary")
+@RequestMapping("/diaries")
 public class DiaryRestController {
 	
 	@Autowired
 	DiaryService diaryService;
 	
+	//Permet de recuperer les carnet en fonction d'une promo avec les questions (mockup11)
 	@GetMapping
-	public List <Diary> listDiaries (@RequestParam Optional<Integer> roleId, Optional<Integer> promoId) {
-		return diaryService.getDiaries (promoId.get());
+	public List <Diary> listDiaries (@RequestParam Optional<Integer> roleId, Optional<Integer> promoId, @RequestParam boolean questions) {
+		if (questions){
+		return diaryService.getDiariesWithQuestions(promoId.get());
+		} else {
+			return diaryService.getDiariesWithoutQuestions(promoId.get());
+		}
 	}
 	
 	//Permet de creer un carnet (mockup10)

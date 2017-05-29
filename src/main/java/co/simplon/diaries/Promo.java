@@ -7,8 +7,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-import org.hibernate.validator.constraints.NotBlank;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import lombok.Getter;
@@ -24,13 +22,13 @@ public class Promo {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 	
-	@NotBlank(message = "Name can't empty!")
+	//@NotBlank(message = "Name can't empty!")
 	private String name;
 	
-	@NotBlank(message = "Name can't empty!")
+	//@NotBlank(message = "Name can't empty!")
 	private Date startDate;
 	
-	@NotBlank(message = "Name can't empty!")
+	//@NotBlank(message = "Name can't empty!")
 	private Date endDate;
 
 }

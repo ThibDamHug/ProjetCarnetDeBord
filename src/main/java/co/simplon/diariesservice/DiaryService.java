@@ -21,22 +21,39 @@ public class DiaryService {
 	public void save (Diary diary) {
 		diaryDao.save(diary);
 	}
+	
+	public List <Diary> getDiariesWithoutQuestions (int promoId) {
+		List <Diary> listDiariesTemp = diaryDao.findAllByPromoId(promoId);
+		List <Diary> listDiaries = new ArrayList<Diary>();
+		for (Diary diaryTemp :listDiariesTemp) {
+			if (diaryTemp.getQuestions().isEmpty()) {
+				listDiaries.add(setFinalDiary(diaryTemp));
+			}
+		}
+		return listDiaries;
+	}
 
-	public List <Diary>  getDiaries(int promoId) {
+	public List <Diary>  getDiariesWithQuestions(int promoId) {
 		List <Diary> listDiariesTemp = diaryDao.findAllByPromoId(promoId);
 		List <Diary> listDiaries = new ArrayList<Diary>();
 		for (Diary diaryTemp :listDiariesTemp) {
 			if (!diaryTemp.getQuestions().isEmpty()) {
-				Diary diaryFinal = new Diary();
-				diaryFinal.setId(diaryTemp.getId());
-				diaryFinal.setName(diaryTemp.getName());
-				diaryFinal.setStartDate(diaryTemp.getStartDate());
-				diaryFinal.setEndDate(diaryTemp.getEndDate());
-				diaryFinal.setQuestions(questionService.setQuestion(diaryTemp.getQuestions()));
-				listDiaries.add(diaryFinal);
+				listDiaries.add(setFinalDiary(diaryTemp));
 			}
 		}
 		return listDiaries;
 	}
 	
+	
+	  /////////////////////////////////////// Methodes Privés ///////////////////////////////////////////
+
+	private Diary setFinalDiary(Diary diary) {
+		Diary diaryFinal = new Diary();
+		diaryFinal.setId(diary.getId());
+		diaryFinal.setName(diary.getName());
+		diaryFinal.setStartDate(diary.getStartDate());
+		diaryFinal.setEndDate(diary.getEndDate());
+		diaryFinal.setQuestions(questionService.QuestionsList(diary.getQuestions()));
+		return diaryFinal;
+	}
 }

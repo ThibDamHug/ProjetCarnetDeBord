@@ -48,6 +48,12 @@ public class User {
 	@ManyToOne
 	private Promo promo;
 	
+	@ManyToOne
+	private Role role;
+	
+	@OneToMany(mappedBy="user")
+	private List<Conclusion> conclusionsList;
+	
 // Methode utile pour integrer la derniere maj	
 // @UpdateTimestamp
 // private Timestamp derniereMaj;
@@ -61,15 +67,5 @@ public class User {
 //			})
 //	@JsonManagedReference
 //	private List <Role> roles ;
-	
-	@ManyToOne
-	private Role role;
-	
-	@OneToMany(mappedBy="user")
-	private List<Conclusion> conclusions;
-	
-//	@OneToMany(mappedBy="user")
-//	private List<Answer> answers;
-
 
 }

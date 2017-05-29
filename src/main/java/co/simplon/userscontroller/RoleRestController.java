@@ -21,6 +21,7 @@ public class RoleRestController {
 	@Autowired
 	RoleDao dao;
 	
+	//Permet de recuperer tous les roles(mockup3)
 	@GetMapping
 	private List<Role> getRoles() {
 		return roleService.findAll();

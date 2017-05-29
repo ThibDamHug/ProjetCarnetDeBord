@@ -63,8 +63,8 @@ public class UserService {
 			Iterable <User> getAllFromAPromo = userDao.findAllByPromoId(promoId); 
 			List <User> getWithoutConclusion = new ArrayList<User>();
 			for (User userTemp : getAllFromAPromo){
-						if (!userTemp.getConclusions().isEmpty()) {
-							List<Conclusion> conclusionListTemp = userTemp.getConclusions();				
+						if (!userTemp.getConclusionsList().isEmpty()) {
+							List<Conclusion> conclusionListTemp = userTemp.getConclusionsList();				
 							List<Conclusion> conclusionListTemp2 = new ArrayList<Conclusion>();
 							for (Conclusion conclusionTemp : conclusionListTemp) {
 								if (conclusionTemp.getDiary().getId() == diaryId) {
