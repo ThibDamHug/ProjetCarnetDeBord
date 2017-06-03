@@ -10,10 +10,6 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
 
-/**
- * An authentication entry point implementation adapted to a REST approach.
- */
-
 @Component
 public class RESTAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
