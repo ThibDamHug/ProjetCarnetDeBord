@@ -14046,7 +14046,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "Evenement",
+											"text": "Event",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -21158,7 +21158,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFbGk8AFKy6Wh4="
 					},
-					"name": "Evenement",
+					"name": "Event",
 					"visibility": "public",
 					"attributes": [
 						{
